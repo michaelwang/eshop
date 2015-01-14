@@ -1,0 +1,42 @@
+{% extends sonata_block.templates.block_base %}
+
+{% if block.filter %}
+    {% set filter = block.filter %}
+{% else %}
+    {% set filter = "cmf_block" %}
+{% endif %}
+
+{% block block %}
+    {% if block.linkUrl %}
+         <img src="{{ block.image.id | imagine_filter(filter) }}"  alt="{{ block.label }}"  data-bgfit="cover" data-bgposition="left top" data-bgrepeat="no-repeat">
+        <div class="tp-caption skewfromrightshort fadeout"
+             data-x="40"
+             data-y="60"
+             data-speed="500"
+             data-start="1200"
+             data-easing="Power4.easeOut"><h2>The New <strong>{{ block.label }}</strong></h2>
+        </div>
+        <div class="tp-caption skewfromrightshort fadeout"
+             data-x="40"
+             data-y="140"
+             data-speed="500"
+             data-start="1200"
+             data-easing="Power4.easeOut"><h3>All the power in your hands!</h3>
+        </div>
+        <div class="tp-caption skewfromrightshort fadeout"
+             data-x="40"
+             data-y="250"
+             data-speed="500"
+             data-start="1200"
+             data-easing="Power4.easeOut"><span>From <span class="price">$990.00</span></span>
+        </div>
+        <div class="tp-caption skewfromrightshort fadeout"
+             data-x="40"
+             data-y="300"
+             data-speed="500"
+             data-start="1200"
+             data-easing="Power4.easeOut"><a class="button big red" href="#">Buy Now</a>
+        </div>
+    {% endif %}
+
+{% endblock %}

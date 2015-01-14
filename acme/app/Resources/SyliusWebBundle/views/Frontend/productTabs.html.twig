@@ -1,0 +1,33 @@
+{% extends 'SyliusWebBundle:Frontend:productDetail.html.twig' %}
+{% block tabs %}
+                                           <div class="row">
+                                                        
+                                                        <div class="col-lg-12 col-md-12 col-sm-12">
+
+                                                                <div class="tabs">
+                                                                
+                                                                        <div class="tab-heading">
+                                                                                <a href="#tab1" class="button big">Description</a>
+                                                                                 <a href="#tab2" class="button big">Leave Message</a>
+                                                                        </div>
+
+                                                                        <div class="page-content tab-content">
+                                                                                
+                                                                                 <div id="tab1">
+                                                                                   <h4>{{ 'sylius.product.description'|trans }}</h4>
+                                                                                   <p>{{ product.description|default('sylius.product.no_description')|trans|raw }}</p>
+                                                                                </div>
+                                                                                <div id="tab2">
+                                                                                  <div class="row">
+                                                                                    <input type="hidden" id="productid" name="productid" value="{{ product.id }}" />
+                                                                                    {{ render(url('theme_review_create')) }}
+                                                                                  </div>
+                                                                                </div>
+                                                                        </div>
+
+                                                                </div>
+
+                                                        </div>
+
+                                                </div>
+{% endblock  %}

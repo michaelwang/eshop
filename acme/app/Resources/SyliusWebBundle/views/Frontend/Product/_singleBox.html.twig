@@ -1,0 +1,37 @@
+<!-- Slide -->
+<div>
+      <!-- Carousel Item -->
+      <div class="product">
+        <div class="product-image">
+             <span class="product-tag">Sale</span>
+              <img src="{{ product.image ? product.image.path|imagine_filter('sylius_medium') : 'http://placehold.it/262x255' }}" alt="{{product.name}}">
+        </div>
+        <div class="product-info">
+          <h5><a href="{{ path(product) }}">{{ product.name|truncate(18) }}</a></h5>
+          <span class="price"> {{ sylius_calculate_price(product.masterVariant)|sylius_price }}  </span>
+          <div class="rating readonly-rating" data-score="4"></div>
+        </div>
+        <div class="product-actions">
+          <span class="add-to-cart">
+              <span class="action-wrapper">
+                  <i class="icons icon-basket-2"></i>
+                  <span class="action-name"> {{ 'sylius.add_to_cart'|trans }}</span>
+              </span >
+          </span>
+          <span class="add-to-favorites">
+               <span class="action-wrapper">
+                 <i class="icons icon-heart-empty"></i>
+                 <span class="action-name">Add to wishlist</span>
+                </span>
+          </span>
+          <span class="add-to-compare">
+              <span class="action-wrapper">
+                <i class="icons icon-docs"></i>
+                <span class="action-name">Add to Compare</span>
+              </span>
+          </span>
+        </div>
+      </div>
+      <!-- /Carousel Item -->
+</div>
+<!-- /Slide -->

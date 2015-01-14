@@ -1,0 +1,17 @@
+{% extends 'SyliusWebBundle:Frontend:productsDetailLayout.html.twig' %}
+{% import 'SyliusThemeBundle:Macros:macros.html.twig' as macros %}
+{% set form = sylius_cart_form({'product': product}) %}
+
+{% block breadcrumb %}
+    {{ macros.breadcum(product.name)}}
+{% endblock %}
+
+{% block content %}
+ <div id="product-single">
+   {% include 'SyliusWebBundle:Frontend:productTabs.html.twig'  %}
+ </div>
+ {{ render(url('sylius_partial_product_latest', {'limit': 9, 'template': 'SyliusWebBundle:Frontend/Product:latest.html.twig'})) }}
+
+
+
+{% endblock %}

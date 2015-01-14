@@ -1,0 +1,64 @@
+{% macro list(products) %}
+
+{% import 'SyliusWebBundle:Backend/Macros:alerts.html.twig' as alerts %}
+
+{% for product in products %}
+{% include 'SyliusWebBundle:Frontend/Product:_single.html.twig' %}
+{% if not loop.last %}<hr>{% endif %}
+{% else %}
+{{ alerts.info('sylius.product.no_results'|trans) }}
+{% endfor %}
+
+{% endmacro %}
+
+{% macro grid(products, size = 3) %}
+
+{% import 'SyliusWebBundle:Backend/Macros:alerts.html.twig' as alerts %}
+
+ <!-- Featured Products -->
+ <div class="products-row row">
+ <!-- Carousel Heading -->
+     <div class="col-lg-12 col-md-12 col-sm-12">
+         <div class="carousel-heading">
+           <h4>Featured Products</h4>
+           <div class="carousel-arrows">
+               <i class="icons icon-left-dir"></i>
+               <i class="icons icon-right-dir"></i>
+           </div>
+          </div>
+     </div>
+     <!-- /Carousel Heading -->
+     <!-- Carousel -->
+     <div class="carousel owl-carousel-wrap col-lg-12 col-md-12 col-sm-12">
+         <div class="owl-carousel" data-max-items="3">
+           {% for product in products %}
+               {% include 'SyliusWebBundle:Frontend/Product:_singleBox.html.twig' %}
+           {% endfor %}
+         </div>
+     </div>
+ </div>
+ <!-- Random Products -->
+ <div class="products-row row">
+ <!-- Carousel Heading -->
+     <div class="col-lg-12 col-md-12 col-sm-12">
+         <div class="carousel-heading">
+           <h4>Random Products</h4>
+           <div class="carousel-arrows">
+               <i class="icons icon-left-dir"></i>
+               <i class="icons icon-right-dir"></i>
+           </div>
+          </div>
+     </div>
+     <!-- /Carousel Heading -->
+     <!-- Carousel -->
+     <div class="carousel owl-carousel-wrap col-lg-12 col-md-12 col-sm-12">
+         <div class="owl-carousel" data-max-items="3">
+           {% for product in products %}
+               {% include 'SyliusWebBundle:Frontend/Product:_singleBox.html.twig' %}
+           {% endfor %}
+         </div>
+     </div>
+  </div>
+
+
+{% endmacro %}

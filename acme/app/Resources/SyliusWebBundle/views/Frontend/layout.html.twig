@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <!-- Meta Tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Title -->
+        {% set settings = sylius_settings_all('general') %}
+        <title>HomeShop - HTML Template</title>
+        {% include 'SyliusWebBundle:Frontend:css.html.twig'  %}
+    </head>
+    <body>
+
+                <!-- Container -->
+                <div class="container">
+
+                        <!-- Header -->
+                        <header class="row">
+
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <!-- Top Header -->
+                                              {% include 'SyliusWebBundle:Frontend:topheader.html.twig'  %}
+                                        <!-- /Top Header -->
+                                        <!-- Main Header -->
+                                              {% include 'SyliusWebBundle:Frontend:mainheader.html.twig'  %}
+                                        <!-- /Main Header -->
+                                        <!-- Main Navigation -->
+                                        {% include 'SyliusWebBundle:Frontend:mainnavigation.html.twig'  %}
+                                        <!-- /Main Navigation -->
+                                </div>
+                        </header>
+                        <!-- /Header -->
+                        <!-- Content -->
+                        <div class="row content">
+                                <!-- Main Content -->
+                                <section class="main-content col-lg-9 col-md-9 col-sm-9 col-lg-push-3 col-md-push-3 col-sm-push-3">
+                                  {% block content %}
+                                  {% endblock %}
+                                </section>
+                                <!-- Sidebar -->
+                                <aside class="sidebar col-lg-3 col-md-3 col-sm-3  col-lg-pull-9 col-md-pull-9 col-sm-pull-9">
+                                        <!-- Categories -->
+                                             {% include 'SyliusWebBundle:Frontend:categories.html.twig'  %}
+                                        <!-- /Categories -->
+                                        <!-- Compare Products -->
+                                        <!-- /Compare Products -->
+                                        <!-- Carousel -->
+                                          {{ render(url('sylius_partial_product_latest', {'limit': 5, 'template': 'SyliusWebBundle:Frontend:carousel.html.twig'})) }}
+                                        <!-- /Carousel -->
+                                        <!-- Bestsellers -->
+                                            {{ render(url('sylius_partial_product_latest', {'limit': 5, 'template': 'SyliusWebBundle:Frontend:bestsellers.html.twig'})) }}
+                                        <!-- /Bestsellers -->
+                                        <!-- Tag Cloud -->
+                                        <!-- /Tag Cloud -->
+                                        <!-- Specials -->
+                                            {{ render(url('sylius_partial_product_latest', {'limit': 5, 'template': 'SyliusWebBundle:Frontend:specials.html.twig'})) }}
+                                        <!-- /Specials -->
+                                </aside>
+                                <!-- /Sidebar -->
+                                
+                        </div>
+                        <!-- /Content -->
+                             {% include 'SyliusWebBundle:Frontend:news.html.twig'  %}
+                        <!-- /News -->
+                        <!-- Banner -->
+                             {% include 'SyliusWebBundle:Frontend:banner.html.twig'  %}
+                        <!-- /Banner -->
+                        <!-- Footer -->
+                             {% include 'SyliusWebBundle:Frontend:footer.html.twig'  %}
+                        <!-- Footer -->
+                        
+            
+            <div id="back-to-top">
+                <i class="icon-up-dir"></i>
+            </div>
+            
+                </div>
+        <!-- Container -->
+
+                <!-- JavaScript -->
+                  {% include 'SyliusWebBundle:Frontend:javascript.html.twig'  %}
+    </body>
+
+</html>

@@ -1,0 +1,31 @@
+{% extends 'SyliusWebBundle:Frontend:productsDetailLayout.html.twig' %}
+
+
+{% form_theme form _self %}
+
+{% block form_rows -%}
+   {% for child in form %}
+      {{- form_row(child) -}}
+   {% endfor %}
+   <br/>
+{%- endblock form_rows %}
+
+
+{% block content  %}
+<form action="{{ path('fos_user_registration_register') }}" method="post" class="form-horizontal" novalidate>
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 register-account">
+      <div class="carousel-heading no-margin">
+               <h4>Register</h4>
+      </div>
+      <form action="{{ path('fos_user_registration_register') }}" method="post" class="form-horizontal" novalidate>
+      <div class="page-content">
+          {{ form_widget(form) }}
+          <input class="big" type="submit" value="{{ 'registration.submit'|trans }}">
+        </form>
+      </div>
+   </div>
+</div>
+
+</form>
+{% endblock  %}

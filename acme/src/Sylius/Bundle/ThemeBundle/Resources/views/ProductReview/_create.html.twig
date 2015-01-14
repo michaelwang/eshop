@@ -1,0 +1,12 @@
+{% form_theme form _self %}
+{% block text_widget %}
+<div class="text_widget">
+  {% set type = type|default('text') %}
+  {{ block('form_widget_simple') }}
+</div>
+{% endblock %}
+
+<form id="reviewForm" action="{{ path('theme_review_create') }}" method="post" class="form-horizontal" novalidate>
+    {{ form_widget(form) }}
+    <input type="submit" value="Send" class="btn btn-primary" />
+</form>

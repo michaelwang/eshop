@@ -1,0 +1,81 @@
+{% macro attributes(attributes) %}
+{% for name, value in attributes %}
+    {%- if value is not none and value is not sameas(false) -%}
+        {{- ' %s="%s"'|format(name, value is sameas(true) ? name|e : value|e)|raw -}}
+    {%- endif -%}
+{%- endfor -%}
+{% endmacro %}
+
+{% block compressed_root %}
+{% spaceless %}
+{{ block('root') }}
+{% endspaceless %}
+{% endblock %}
+
+{% block root %}
+{% set listAttributes = item.childrenAttributes %}
+{{ block('list') -}}
+{% endblock %}
+
+{% block list %}
+{% if item.hasChildren and options.depth is not sameas(0) and item.displayChildren %}
+
+<li>
+  <a href="#">
+     <i class="icons icon-dollar"></i>
+     US Dollar
+  </a>
+  <ul class="box-dropdown parent-arrow">
+   <li>
+    <div class="box-wrapper no-padding parent-border">
+      {{ block('children') }}
+    </div>
+   </li>
+  </ul></li>
+ {% endif %}
+{% endblock %}
+
+{% block children %}
+    {# save current variables #}
+    {% set currentOptions = options %}
+    {% set currentItem = item %}
+    {# update the depth for children #}
+    {% if options.depth is not none %}
+          {% set options = currentOptions|merge({'depth': currentOptions.depth - 1}) %}
+  {% endif %}
+      <table class="currency-table">
+       <tbody>
+        {% for item in currentItem.children %}
+          {{ block('item') }}
+        {% endfor %}
+       </tbody>
+      </table>
+    {# restore current variables #}
+    {% set item = currentItem %}
+    {% set options = currentOptions %}
+{% endblock %}
+
+{% block item %}
+{% if item.displayed %}
+        {# building the class of the item #}
+        {# displaying the item #}
+        {%- if item.uri is not empty and (not item.current or options.currentAsLink) %}
+           {{ block('linkElement') }}
+        {%- else %}
+           {{ block('spanElement') }}
+        {%- endif %}
+        {# render the list of children#}
+        {%- set childrenClasses = item.childrenAttribute('class') is not empty ? [item.childrenAttribute('class')] : [] %}
+        {%- set childrenClasses = childrenClasses|merge(['menu_level_' ~ item.level]) %}
+        {%- set listAttributes = item.childrenAttributes|merge({'class': childrenClasses|join(' ') }) %}
+     {{ block('sublist') }}
+ {% endif %}
+{% endblock %}
+
+{% block linkElement %}<tr><td><a href="{{ item.uri }}">{{ block('label') }}</a></td></tr>{% endblock %}
+
+{% block spanElement %}
+   {{ block('label') }}
+{% endblock %}
+
+{% block label %}{% if options.allow_safe_labels and item.getExtra('safe_label', false) %}{{ item.label|raw }}{% else %}{{ item.label }}{% endif %}{% endblock %}

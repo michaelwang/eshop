@@ -1,0 +1,32 @@
+                                        <div id="top-header">
+
+                                                <div class="row">
+
+                                                  <nav id="top-navigation" class="col-lg-7 col-md-7 col-sm-7">
+                                                    <ul class="pull-left">
+                                                      {% for child in cmf_children(cmf_find('/cms/pages')) %}
+                                                        <li>
+                                                           <a href="{{ path(child) }}">{{ child.title|striptags }}</a>
+                                                         </li>
+                                                        {% endfor %}
+                                                    </ul>
+                                                  </nav>
+                                                  <nav class="col-lg-5 col-md-5 col-sm-5">
+                                                    <ul class="pull-right">
+                                                      {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                                                           <li class="purple">
+                                                                {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}                                                   </li>
+                                                           <li class="purple"><i class="icons icon-user-3"></i>
+                                                             <a href="{{ path('fos_user_security_logout') }}">
+                                                               {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+                                                             </a>
+                                                           </li>
+                                                      {% else %}
+                                                          <li class="purple"><a href="/login"><i class="icons icon-user-3"></i> Login</a>
+                                                          </li>
+                                                          <li><a href="/register"><i class="icons icon-lock"></i> Create an Account</a></li>
+                                                      {% endif%}
+                                                    </ul>
+                                                </div>
+
+                                        </div>

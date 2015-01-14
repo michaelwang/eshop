@@ -1,0 +1,114 @@
+{% macro attributes(attributes) %}
+{% for name, value in attributes %}
+    {%- if value is not none and value is not sameas(false) -%}
+        {{- ' %s="%s"'|format(name, value is sameas(true) ? name|e : value|e)|raw -}}
+    {%- endif -%}
+{%- endfor -%}
+{% endmacro %}
+
+{% block compressed_root %}
+{% spaceless %}
+{{ block('root') }}
+{% endspaceless %}
+{% endblock %}
+
+{% block root %}
+{% set listAttributes = item.childrenAttributes %}
+{{ block('list') -}}
+{% endblock %}
+
+{% block list %}
+ {% if item.hasChildren and options.depth is not sameas(0) and item.displayChildren %}
+    {{ block('children') }}
+ {% endif %}
+{% endblock %}
+
+{% block sublist %}
+  {% if item.hasChildren and options.depth is not sameas(0) and item.displayChildren %}
+    <ul class="wide-dropdown normalAniamtion">
+        {{ block('subchildren') }}
+    </ul>
+  {% endif %}
+{% endblock %}
+
+{% block children %}
+    {# save current variables #}
+    {% set currentOptions = options %}
+    {% set currentItem = item %}
+    {# update the depth for children #}
+    {% if options.depth is not none %}
+          {% set options = currentOptions|merge({'depth': currentOptions.depth - 1}) %}
+    {% endif %}
+
+      {% for item in currentItem.children | slice(0,3) %}
+          {{ block('item') }}
+      {% endfor %}
+    </li>
+    {# restore current variables #}
+    {% set item = currentItem %}
+    {% set options = currentOptions %}
+{% endblock %}
+
+{% block subchildren %}
+    {# save current variables #}
+    {% set currentOptions = options %}
+    {% set currentItem = item %}
+    {# update the depth for children #}
+    {% if options.depth is not none %}
+          {% set options = currentOptions|merge({'depth': currentOptions.depth - 1}) %}
+    {% endif %}
+    <li>
+      <ul>
+        <li>
+          <span class="nav-caption">{{ block('label') }}</span>
+        </li>
+        {% for item in currentItem.children | slice(0,4) %}
+            {{ block('item') }}
+        {% endfor %}
+      </ul>
+    </li>
+    {% if currentItem.children | slice(4,8) | length > 0  %}
+     <li>
+         <ul>
+            <li><span class="nav-caption">Digital Cameras</span></li>
+            {% for item in currentItem.children | slice(4,8) %}
+               {{ block('item') }}
+            {% endfor %}
+         </ul>
+     </li>
+    {% endif  %}
+    {# restore current variables #}
+    {% set item = currentItem %}
+    {% set options = currentOptions %}
+{% endblock %}
+
+{% block item %}
+{% if item.displayed %}
+        {# building the class of the item #}
+        {# displaying the item #}
+        {%- if item.uri is not empty and (not item.current or options.currentAsLink) %}
+           {{ block('linkElement') }}
+        {%- else %}
+           {{ block('spanElement') }}
+        {%- endif %}
+        {# render the list of children#}
+        {%- set childrenClasses = item.childrenAttribute('class') is not empty ? [item.childrenAttribute('class')] : [] %}
+        {%- set childrenClasses = childrenClasses|merge(['menu_level_' ~ item.level]) %}
+        {%- set listAttributes = item.childrenAttributes|merge({'class': childrenClasses|join(' ') }) %}
+     {{ block('sublist') }}
+     </li>
+ {% endif %}
+{% endblock %}
+
+{% block linkElement %}<a href="{{ item.uri }}"><i class="icons icon-right-dir"></i>{{ block('label') }}</a>{% endblock %}
+
+{% block spanElement %}
+   <li class="red">
+   <a href="#">
+       <i class="icons icon-camera-7"> </i>
+       <span class="nav-caption"> {{ block('label') }} </span>
+       <span class="nav-description"> {{ block('label') }} </span>
+   </a>
+{% endblock %}
+
+{% block label %}{% if options.allow_safe_labels and item.getExtra('safe_label', false) %}{{ item.label|raw }}{% else %}{{ item.label }}{% endif %}{% endblock %}

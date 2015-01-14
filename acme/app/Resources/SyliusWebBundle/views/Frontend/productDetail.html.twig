@@ -1,0 +1,96 @@
+                                         <div class="product-single">
+
+                                                        <div class="row">
+                                                                
+                                                                <!-- Product Images Carousel -->
+                                                                <div class="col-lg-5 col-md-5 col-sm-5 product-single-image">
+                                                                        
+                                                                        <div id="product-slider">
+                                                                                <ul class="slides">
+                                                                                        <li>
+                                                                 <img class="cloud-zoom" src="{{ product.image ? product.image.path|imagine_filter('sylius_medium') : 'http://placehold.it/200x200' }}" alt="{{ product.name }}" data-large="{{ product.image ? product.image.path|imagine_filter('sylius_medium') : 'http://placehold.it/200x200' }}" />
+                                                                                                <a class="fullscreen-button" href="/img/products/single1.jpg">
+                                                                                                        <div class="product-fullscreen">
+                                                                                                                <i class="icons icon-resize-full-1"></i>
+                                                                                                        </div>
+                                                                                                </a>
+                                                                                        </li>
+                                                                                </ul>
+                                                                        </div>
+                                                                        <div id="product-carousel">
+                                                                           <ul class="slides">
+                                                                             {% for image in product.images %}
+                                                                               <li>
+                                                                                  <a class="fancybox" rel="product-images" href="{{ image.path|imagine_filter('sylius_large') }}"></a>
+                                                                                  <img src="{{ image.path|imagine_filter('sylius_large') }}" data-large="{{ image.path|imagine_filter('sylius_large') }}" alt=""/>
+                                                                               </li>
+                                                                             {% endfor %}
+                                                                           </ul>
+
+                                                                                <div class="product-arrows">
+                                                                                        <div class="left-arrow">
+                                                                                                <i class="icons icon-left-dir"></i>
+                                                                                        </div>
+                                                                                        <div class="right-arrow">
+                                                                                                <i class="icons icon-right-dir"></i>
+                                                                                        </div>
+                                                                                </div>
+                                                                        </div>
+                                                                </div>
+                                                                <!-- /Product Images Carousel -->
+                                                                <div class="col-lg-7 col-md-7 col-sm-7 product-single-info">
+
+                                                                        <h2>{{ product.name }}</h2>
+                                                                        <div class="rating-box">
+
+                                                                        </div>
+                                                                        {% if product.attributes|length > 0 %}
+                                                                           <strong>{{ 'sylius.product.attributes'|trans }}</strong>
+                                                                           <table>
+                                                                              <tbody>
+                                                                                        {% for attribute in product.attributes %}
+                                                                                          <tr>
+                                                                                            <td>{{ attribute.presentation }}</td>
+                                                                                             <td>{{ attribute.value }}</td>
+                                                                                          </tr>
+                                                                                        {% endfor %}
+                                                                               </tbody>
+                                                                           </table>
+                                                                        {% endif %}
+                                                                        <span class="price"> {{ 'sylius.variant.price'|trans }}
+                                                                          {{ sylius_calculate_price(product.masterVariant)|sylius_price }}
+                                                                        </span>
+
+                                                                        <div class="social-share">
+                                                                                        <iframe src="//www.facebook.com/plugins/like.php?href=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;width&amp;layout=button_count&amp;action=like&amp;show_faces=false&amp;share=false&amp;height=21" style="border:none; overflow:hidden; height:21px; width:100px;"></iframe>
+                                                                                        
+                                                                                        <iframe 
+                        src="https://platform.twitter.com/widgets/tweet_button.html"
+                        style="width:100px; height:20px;"></iframe>
+                        
+                                                                                        <!-- Place this tag where you want the +1 button to render. -->
+                                                                                        <div class="g-plusone" data-size="medium"></div>
+                                                                                        
+                                                                                        <!-- Place this tag after the last +1 button tag. -->
+                                                                                        <script type="text/javascript">
+                                                                                          (function() {
+                                                                                                var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+                                                                                                po.src = 'https://apis.google.com/js/platform.js';
+                                                                                                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+                                                                                          })();
+                                                                                        </script>
+                                                                                        
+                                                                                        
+                                                                                        <a href="//www.pinterest.com/pin/create/button/?url=http%3A%2F%2Fwww.flickr.com%2Fphotos%2Fkentbrew%2F6851755809%2F&media=http%3A%2F%2Ftest.ratkosolar.com%2Fhomeshop%2F15-blog_post.html&description=Next%20stop%3A%20Pinterest" data-pin-do="buttonPin" data-pin-config="beside" class="pinterest"><img src="//assets.pinterest.com/images/pidgets/pinit_fg_en_rect_gray_20.png" /></a>
+                                                                                        <!-- Please call pinit.js only once per page -->
+                                                                                        <script type="text/javascript" async src="//assets.pinterest.com/js/pinit.js"></script>
+                                                                                        
+                                                                                </div>
+                                                                        
+                                                                </div>
+                                                                
+                                                        </div>
+                                                        
+                                                </div>
+{% block tabs %}
+{% endblock %}

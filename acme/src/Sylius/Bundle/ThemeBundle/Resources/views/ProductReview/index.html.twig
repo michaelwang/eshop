@@ -1,0 +1,10 @@
+<ul class="comments">
+  {% for review in reviews %}
+  <li>
+    <p><strong><a href="#">{{ review.firstname }}</a></strong></p>
+    <span class="date">{{ review.createdate|date("Y-m-d H:i") }}</span>
+    <i class="icons icon-reply"></i>
+    <p>{{ review.content }} </p>
+  </li>
+  {% endfor %}
+</ul>

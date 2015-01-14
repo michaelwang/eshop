@@ -1,0 +1,31 @@
+                                                <ul>
+                                                        <li class="home-green current-item">
+                                                                <a href="/">
+                                                                        <i class="icons icon-shop-1"></i>
+                                                                        <span class="nav-caption">Home</span>
+                                                                        <span class="nav-description">Variety of Products</span>
+                                                                </a>
+
+                                                        </li>
+                                                        {{ knp_menu_render('sylius.frontend.taxonomies', {'template': 'SyliusWebBundle:Frontend:menu_menutpl.html.twig'}) }}
+                                                        <li class="green">
+                                                                <a href="#">
+                                                                        <i class="icons icon-pencil-7"></i>
+                                                                        <span class="nav-caption">Blog</span>
+                                                                        <span class="nav-description">News & Reviews</span>
+                                                                </a>
+                                                        </li>
+
+                                                        <li class="purple">
+                                                             <a href="{{ path('sylius_contact') }}">
+                                                                    <i class="icons icon-location-7"></i >
+                                                                       <span class="nav-caption">Contact</span>
+                                                                       <span class="nav-description">Store Locations</span>
+                                                             </a>
+                                                        </li>
+
+                                                        <li class="nav-search">
+                                        <i class="icons icon-search-1"></i>
+                                                        </li>
+
+                                                </ul>

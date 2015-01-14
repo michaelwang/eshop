@@ -1,0 +1,15 @@
+{% extends 'SyliusWebBundle:Frontend:layout.html.twig' %}
+
+{% block content %}
+{% createphp cmfMainContent as='rdf' noautotag %}
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12">
+    <div class="carousel-heading no-margin">
+        <h4 class="page-title" {{ createphp_attributes(rdf.title) }}>{{ createphp_content(rdf.title) }}</h4>
+    </div>
+
+    <div class="page-content">{{ createphp_content(rdf.body) }}</div>
+  </div>
+</div>
+{% endcreatephp %}
+{% endblock %}
