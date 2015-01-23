@@ -1,3 +1,12 @@
+{% from 'SyliusThemeBundle:Macros:macros.html.twig' import pagination %}
+<div class="row">
+  <div class="col-lg-6 col-md-6 col-sm-6">
+    <div class="category-results">
+      <p>Results 1-6 of 6</p>
+    </div>
+  </div>
+  {{ pagination(reviews) }}
+</div>
 <ul class="comments">
   {% for review in reviews %}
   <li>
@@ -8,3 +17,4 @@
   </li>
   {% endfor %}
 </ul>
+{{ render(url('theme_review_create')) }}

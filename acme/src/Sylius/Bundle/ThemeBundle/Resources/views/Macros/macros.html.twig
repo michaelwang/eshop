@@ -5,3 +5,9 @@
                     </div>
                 </div>
 {% endmacro %}
+
+{% macro pagination(paginator) %}
+  {% if paginator.haveToPaginate() %}
+       {{ pagerfanta(paginator, 'homeshop_view') }}
+  {% endif %}
+{% endmacro %}

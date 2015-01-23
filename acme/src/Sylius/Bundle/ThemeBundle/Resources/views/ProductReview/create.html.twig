@@ -1,1 +1,20 @@
-{% include 'SyliusThemeBundle:ProductReview:_create.html.twig'  %}
+{% extends 'SyliusThemeBundle:ProductReview:_create.html.twig'  %}
+
+{% block form_review %}
+  <div class="col-lg-6 col-md-6 col-sm-8">
+     <h3>ADD A COMMENT</h3>
+     <form id="reviewForm" action="{{ path('theme_review_create') }}" method="post" class="form-horizontal" novalidate>
+         {{ form_label(form.firstname) }}
+         {{ form_widget(form.firstname) }}
+         {{ form_label(form.lastname) }}
+         {{ form_widget(form.lastname) }}
+         {{ form_label(form.email) }}
+         {{ form_widget(form.email) }}
+         {{ form_label(form.content) }}
+         {{ form_widget(form.content) }}
+         {{ form_rest(form) }}
+         <input type="submit" value="Send" class="btn btn-primary" />
+    </form>
+</div>
+
+{% endblock %}

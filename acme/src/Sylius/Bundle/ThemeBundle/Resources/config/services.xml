@@ -8,5 +8,8 @@
              <argument>Sylius\Bundle\ThemeBundle\Form\Type\ProductReviewType</argument>
              <tag name="form.type" alias="theme_reviews" />
       </service>
+      <service id="pagerfanta.view.homeshop_view" class="Sylius\Bundle\ThemeBundle\View\HomeshopView" public="false">
+            <tag name="pagerfanta.view" alias="homeshop_view" />
+        </service>
     </services>
 </container>

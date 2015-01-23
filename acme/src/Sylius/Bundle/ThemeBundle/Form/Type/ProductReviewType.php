@@ -17,7 +17,7 @@ class ProductReviewType extends AbstractType
     {
         $builder
             ->add('firstname', 'text', array(
-                'label' => 'Firstname',
+                'label' => 'Firstname(Required)',
             ))
             ->add('lastname','text',array(
                 'label' => 'Lastname',
@@ -26,7 +26,7 @@ class ProductReviewType extends AbstractType
                 'label' => 'Productid',
             ))
             ->add('email','email',array(
-                'label' => 'Email',
+                'label' => 'Email(Required,but will not display)',
             ))
             ->add('content','textarea',array(
                 'label' => 'Content',

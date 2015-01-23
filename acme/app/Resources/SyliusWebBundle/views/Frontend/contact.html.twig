@@ -71,20 +71,24 @@ Sunday: closed</p>
                             </div>
 
                             <div class="page-content contact-form">
-                              <form action="{{ path('sylius_contact') }}" method="post" class="form-horizontal" novalidate>
-                                    {{ form_errors(form) }}
-                                    {{ form_row(form.topic) }}
-                                    {{ form_row(form.firstName) }}
-                                    {{ form_row(form.lastName) }}
-                                    {{ form_row(form.email) }}
-                                    {{ form_row(form.message) }}
-                                    <input class="big" type="submit" value="Send Message">
-                                    {{ form_rest(form) }}
+                              <form action="{{ path('sylius_contact') }}" id="contactForm" method="post" class="form-horizontal" novalidate>
+                                 {{ form_label(form.topic) }}
+                                 {{ form_widget(form.topic) }}
+                                 {{ form_label(form.firstName) }}
+                                 {{ form_widget(form.firstName) }}
+                                 {{ form_label(form.lastName) }}
+                                 {{ form_widget(form.lastName) }}
+                                 {{ form_label(form.email) }}
+                                 {{ form_widget(form.email) }}
+                                 {{ form_label(form.message) }}
+                                 {{ form_widget(form.message) }}
+                                 <input class="big" type="submit" value="Send Message">
+                                 {{ form_rest(form) }}
                                 </form>
                             </div>
-                            
+
                         </div>
-                        
-                        
+
+
                         </div>
 {% endblock %}

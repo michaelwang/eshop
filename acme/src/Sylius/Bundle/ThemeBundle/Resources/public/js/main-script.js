@@ -9,6 +9,13 @@ function include(url){
 include('/twitter/jquery.tweet.js'); // Twitter widget */
 include('/bundles/syliustheme/js/tinynav.min.js'); // Tiny nav
 
+$body = $("body");
+
+$(document).on({
+  ajaxStart: function() { $body.addClass("loading");    },
+  ajaxStop: function() { $body.removeClass("loading"); }
+});
+
 
 
 $(document).ready(function(){
@@ -256,8 +263,8 @@ $(document).ready(function(){
 	
 	
 	
-	
-	
+
+
 	/* Single Product Page */
 	function singleProduct(){
 	
@@ -897,6 +904,23 @@ $(document).ready(function(){
 		
 	});
 
+    contactForm();
+    function contactForm(){
+      $('#contactForm').submit(function(e){
+          e.preventDefault();
+          var url = $(this).attr('action');
+          $.ajax({
+		  type: "POST",
+		  url: url,
+   		  data: $('#contactForm').serialize(),
+       	          success: function(data){
+                    alert('Send Success,thanks!');
+		  }
+          });
+      });
+    }
+
+
     bindReviewFormSubmit();
 
     function  bindReviewFormSubmit(){
@@ -905,25 +929,77 @@ $(document).ready(function(){
                 e.preventDefault();
 		var url = $(this).attr('action');
 		var error = false;
-
-		if(error == false){
+		if($(this).find('input[name="theme_reviews[firstname]"]').val() == ''){
+			if($(this).find('span.error').length==0){
+   		           $(this).append('<span class="error">Please, fill in your firstname</span>');
+			}else{
+				$(this).find('span.error').text('Please, fill in your firstname');
+			}
+                        return ;
+                }
+                var email = $(this).find('input[name="theme_reviews[email]"]').val();
+                if( !isValidEmailAddress(email) ){
+			if($(this).find('span.error').length==0){
+   		          $(this).append('<span class="error">Please, fill in your valid email address</span>');
+			}else{
+			  $(this).find('span.error').text('Please, fill in your valid email address');
+			}
+                        return ;
+		}
+                if($(this).find('textarea[name="theme_reviews[content]"]').val() == ''){
+			if($(this).find('span.error').length==0){
+   		          $(this).append('<span class="error">Please, fill in your content</span>');
+			}else{
+			  $(this).find('span.error').text('Please, fill in your content');
+			}
+		} else {
+  		  if(error == false){
 			$(this).find('span.error').hide();
                         $('#theme_reviews_productid').val($('#productid').val());
 			$.ajax({
 			  type: "POST",
 				url: url,
    			        data: $('#reviewForm').serialize(),
-				success: function(data){
-                                  //				   $('#tab2').find('>*').slideUp(300);
+   			        success: function(data){
                                   $('#tab2').empty();
-
 				  $('#tab2').append('<div class="row">'+data+'</div>');
                                   bindReviewFormSubmit();
+                                  getReview();
 				}
 			});
-		}
+		  }
+               }
 	});
     }
+
+    function isValidEmailAddress(emailAddress) {
+      var pattern = new RegExp(/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i);
+      return pattern.test(emailAddress);
+    }
+
+
+      getReview();
+      function getReview(){
+        $('div.pagination a').click(
+          function (e){
+            e.preventDefault();
+     	    var target = $(this).attr('href');
+            if (target.indexOf('#') == 0){
+              return ;
+            }
+            $.ajax({
+		   type: "GET",
+		   url: target,
+		   data: null,
+		    success: function(data){
+                      $('#tab2 div').empty();
+		      $('#tab2 div').append(data);
+                      getReview();
+                      bindReviewFormSubmit();
+		   }
+            });
+          });
+      }
 
 
 
