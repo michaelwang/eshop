@@ -66,6 +66,7 @@ theme_review_index:
       defaults:
          _controller: theme.controller.reviews:indexAction
          _sylius:
+            paginate: 4
             sortable: true
             sorting:
               createDate: desc
